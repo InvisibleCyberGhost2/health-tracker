@@ -36,7 +36,7 @@ try:
 except Exception as e:
     logging.error(f"Error initializing Firebase: {e}")
 
-# ──────── HELPER FUNCTIONS ────────
+# Helper Functions
 def get_current_user_data():
     """Get current user's data from Firestore"""
     if 'user_id' not in session:
@@ -147,7 +147,7 @@ def generate_feedback(summaries, sleep_logs):
     
     return feedback
 
-# ──────── ROUTES ────────
+# Routes
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -162,13 +162,7 @@ def register():
         gender = request.form['gender']
 
         try:
-            # Create Firebase auth user
-            user = auth.create_user(
-                email=email,
-                password=password
-            )
-            
-            # Create user document in Firestore
+            user = auth.create_user(email=email, password=password)
             user_ref = db.collection('users').document(user.uid)
             user_ref.set({
                 'email': email,
@@ -178,12 +172,9 @@ def register():
                 'weight_goal': 0.0,
                 'join_date': datetime.now()
             })
-            
             logging.debug(f"User registered: {email}")
             return redirect(url_for('login'))
-        
         except auth.EmailAlreadyExistsError:
-            logging.error(f"Email already exists: {email}")
             return render_template('register.html', error="Email already exists.")
         except Exception as e:
             logging.error(f"Registration error: {e}")
@@ -198,19 +189,12 @@ def login():
         password = request.form['password']
 
         try:
-            # In production, use Firebase client-side auth
-            # This is simplified for demonstration
             user = auth.get_user_by_email(email)
-            
-            # Verify password (in production, this would be handled client-side)
-            # Here we just check if user exists
             session['user_id'] = user.uid
             session['email'] = email
             logging.debug(f"User logged in: {email}")
             return redirect(url_for('dashboard'))
-        
         except auth.UserNotFoundError:
-            logging.debug("User not found")
             return render_template('index.html', error="Invalid email or password.")
         except Exception as e:
             logging.error(f"Login error: {e}")
@@ -229,7 +213,6 @@ def dashboard():
     if not user_data:
         return redirect(url_for('logout'))
 
-    # Initialize summary data
     summaries = {
         'health': {'weight': 0, 'water': 0, 'steps': 0},
         'exercise': {'calories_burned': 0, 'duration': 0},
@@ -237,7 +220,6 @@ def dashboard():
     }
     
     try:
-        # Health data
         health_docs = db.collection('health').where('user_id', '==', user_id).stream()
         health_records = []
         for doc in health_docs:
@@ -247,7 +229,6 @@ def dashboard():
             summaries['health']['water'] += data.get('water', 0)
             summaries['health']['steps'] += data.get('steps', 0)
         
-        # Exercise data
         exercise_docs = db.collection('exercise_logs').where('user_id', '==', user_id).stream()
         exercise_logs = []
         for doc in exercise_docs:
@@ -256,7 +237,6 @@ def dashboard():
             summaries['exercise']['calories_burned'] += data.get('calories_burned', 0)
             summaries['exercise']['duration'] += data.get('duration', 0)
         
-        # Meal data
         meal_docs = db.collection('meal_logs').where('user_id', '==', user_id).stream()
         meal_logs = []
         for doc in meal_docs:
@@ -265,7 +245,6 @@ def dashboard():
             summaries['meals']['calories'] += data.get('calories', 0)
             summaries['meals']['count'] += 1
         
-        # Sleep data
         sleep_docs = db.collection('sleep_logs').where('user_id', '==', user_id).stream()
         sleep_logs = [doc.to_dict() for doc in sleep_docs]
         
@@ -273,13 +252,118 @@ def dashboard():
         logging.error(f"Error fetching dashboard data: {e}")
         return render_template('error.html', message="An error occurred while loading your dashboard.")
 
-    # Generate feedback
     feedback = generate_feedback(summaries, sleep_logs)
     
-    return render_template('dashboard.html',
+    return render_template(
+        'dashboard.html',
         email=session.get('email'),
         user_name=user_data.get('full_name'),
         join_date=user_data.get('join_date').strftime('%Y-%m-%d') if user_data.get('join_date') else 'N/A',
         weight_goal=user_data.get('weight_goal', 0),
         summaries=summaries,
         feedback=feedback,
+        health_records=health_records,
+        exercise_logs=exercise_logs,
+        meal_logs=meal_logs,
+        sleep_logs=sleep_logs
+    )
+
+@app.route('/add_data', methods=['POST'])
+def add_data():
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'Not authenticated'}), 401
+    
+    user_id = session['user_id']
+    data_type = request.form.get('data_type')
+    
+    try:
+        if data_type == 'health':
+            success = add_health_data(
+                user_id,
+                request.form['date'],
+                request.form['weight'],
+                request.form['water'],
+                request.form['steps']
+            )
+        elif data_type == 'exercise':
+            success = add_exercise_data(
+                user_id,
+                request.form['date'],
+                request.form['activity_type'],
+                request.form['duration'],
+                request.form['calories_burned'],
+                request.form['notes']
+            )
+        elif data_type == 'meal':
+            success = add_meal_data(
+                user_id,
+                request.form['date'],
+                request.form['meal_type'],
+                request.form['calories'],
+                request.form['protein'],
+                request.form['fat'],
+                request.form['carbs'],
+                request.form['notes']
+            )
+        elif data_type == 'sleep':
+            success = add_sleep_data(
+                user_id,
+                request.form['date'],
+                request.form['bed_time'],
+                request.form['wake_up_time']
+            )
+        else:
+            return jsonify({'success': False, 'error': 'Invalid data type'}), 400
+        
+        return jsonify({'success': success})
+            
+    except Exception as e:
+        logging.error(f"Error adding {data_type} data: {e}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@app.route('/edit_profile', methods=['GET', 'POST'])
+def edit_profile():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    
+    user_id = session['user_id']
+    user_ref = db.collection('users').document(user_id)
+    
+    if request.method == 'POST':
+        try:
+            updates = {
+                'full_name': request.form['full_name'],
+                'email': request.form['email'],
+                'weight_goal': float(request.form['weight_goal'])
+            }
+            user_ref.update(updates)
+            session['email'] = request.form['email']
+            return redirect(url_for('dashboard'))
+        except Exception as e:
+            logging.error(f"Error updating profile: {e}")
+            return render_template('edit_profile.html', error="Failed to update profile.")
+
+    user_data = user_ref.get().to_dict()
+    return render_template('edit_profile.html', 
+        user_name=user_data.get('full_name', ''),
+        email=user_data.get('email', ''),
+        weight_goal=user_data.get('weight_goal', 0)
+    )
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    logging.debug("User logged out.")
+    return redirect(url_for('login'))
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
+    return render_template('index.html')
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('index.html'), 404
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=8000)
