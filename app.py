@@ -5,7 +5,7 @@ from datetime import datetime
 import logging
 
 app = Flask(__name__)
-#app.secret_key = '3a928948ef40444b2b9f8c11d341c6ea'
+app.secret_key = '3a928948ef40444b2b9f8c11d341c6ea'
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
