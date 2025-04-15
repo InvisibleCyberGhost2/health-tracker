@@ -289,12 +289,5 @@ def catch_all(path):
 
 # ──────── MAIN ────────
 if __name__ == '__main__':
-<<<<<<< HEAD
     init_db()
     app.run(debug=True, host='0.0.0.0', port=8000)
-
-
-=======
-    port = int(os.environ.get('PORT', 8000))
-    app.run(host='0.0.0.0', port=port, debug=os.environ.get('FLASK_DEBUG', 'False') == 'True')
->>>>>>> c8309a2a31a1ae6c6cb703ff600776eff7a33daf
