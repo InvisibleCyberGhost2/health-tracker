@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | VitalTrack Health</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #d946ef;
+            --light: #f8fafc;
+            --dark: #111827;
+        }
+        
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .contact-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .input-focus:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+        }
+        
+        .btn-gradient {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-gradient::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.1) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .btn-gradient:hover::after {
+            left: 100%;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .faq-item {
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Elements -->
+    <div class="fixed -right-32 -top-32 w-96 h-96 rounded-full bg-purple-200 opacity-20 blur-3xl -z-10"></div>
+    <div class="fixed -left-32 bottom-0 w-96 h-96 rounded-full bg-indigo-200 opacity-20 blur-3xl -z-10"></div>
+    
+    <!-- Navigation -->
+    <nav class="glass-card fixed top-0 left-0 right-0 z-50 py-4 px-6 shadow-sm">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="/" class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                <span class="ml-2 text-xl font-bold">VitalTrack</span>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="/" class="text-gray-600 hover:text-indigo-600 transition">Home</a>
+                <a href="#contact" class="text-gray-600 hover:text-indigo-600 transition">Contact</a>
+                <a href="#faq" class="text-gray-600 hover:text-indigo-600 transition">FAQ</a>
+            </div>
+            <a href="/register" class="btn-gradient text-white px-6 py-2 rounded-lg shadow hover:shadow-lg transition flex items-center">
+                Get Started <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 px-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="z-10">
+                <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6">
+                    Connect With <span class="gradient-text">Our Team</span>
+                </h1>
+                <p class="text-xl text-gray-600 mb-8 max-w-lg">
+                    We're here to help you on your health journey. Reach out with questions, feedback, or partnership opportunities.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#contact-form" class="btn-gradient text-white px-6 py-3 rounded-lg shadow hover:shadow-lg transition flex items-center pulse">
+                        Send a Message <i class="fas fa-paper-plane ml-2"></i>
+                    </a>
+                    <a href="#contact-methods" class="border-2 border-gray-200 bg-white text-gray-700 px-6 py-3 rounded-lg hover:border-indigo-400 hover:bg-gray-50 transition flex items-center">
+                        Contact Options <i class="fas fa-phone-alt ml-2"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="relative floating z-0">
+                <div class="absolute -top-10 -left-10 w-64 h-64 bg-purple-100 rounded-full opacity-50 blur-xl -z-10"></div>
+                <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-indigo-100 rounded-full opacity-50 blur-xl -z-10"></div>
+                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                     alt="Health Analytics" 
+                     class="relative z-10 rounded-3xl shadow-2xl border-8 border-white transform rotate-2 hover:rotate-0 transition duration-500">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Methods -->
+    <section id="contact-methods" class="py-16 px-6 bg-gradient-to-br from-gray-50 to-indigo-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-indigo-600 font-semibold tracking-wider">CONNECT WITH US</span>
+                <h2 class="text-4xl font-bold mt-2 mb-4">Multiple Ways to Reach Us</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Email Card -->
+                <div class="contact-card glass-card p-8 rounded-2xl shadow-lg text-center">
+                    <div class="bg-indigo-100/50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-sm">
+                        <i class="fas fa-envelope text-indigo-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4">Email Us</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <p class="text-gray-600 mb-1">General inquiries:</p>
+                            <a href="mailto:support@vitaltrack.com" class="text-indigo-600 hover:text-indigo-800 font-medium transition">
+                                support@vitaltrack.com
+                            </a>
+                        </div>
+                        <div>
+                            <p class="text-gray-600 mb-1">Press inquiries:</p>
+                            <a href="mailto:press@vitaltrack.com" class="text-indigo-600 hover:text-indigo-800 font-medium transition">
+                                press@vitaltrack.com
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Phone Card -->
+                <div class="contact-card glass-card p-8 rounded-2xl shadow-lg text-center">
+                    <div class="bg-purple-100/50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-sm">
+                        <i class="fas fa-phone-alt text-purple-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4">Call Us</h3>
+                    <p class="text-gray-600 mb-4">Monday-Saturday, 9am-5:30pm EST</p>
+                    <a href="tel:+18005551234" class="text-3xl font-bold text-gray-800 hover:text-indigo-600 transition block">
+                        +1 (800) 555-1234
+                    </a>
+                </div>
+                
+                <!-- Location Card -->
+                <div class="contact-card glass-card p-8 rounded-2xl shadow-lg text-center">
+                    <div class="bg-pink-100/50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-sm">
+                        <i class="fas fa-map-marker-alt text-pink-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4">Visit Us</h3>
+                    <address class="not-italic text-gray-600 mb-6">
+                        VitalTrack Health Solutions<br>
+                        123 Wellness Way<br>
+                        Boston, MA 02115<br>
+                        United States
+                    </address>
+                    <a href="https://maps.google.com" target="_blank" class="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium transition">
+                        <i class="fas fa-map-marked-alt mr-2"></i> Get Directions
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact-form" class="py-16 px-6 bg-white">
+        <div class="max-w-4xl mx-auto glass-card p-8 md:p-12 rounded-3xl shadow-xl">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Send Us a Message</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Fill out the form below, and our team will get back to you within 24 hours.
+                </p>
+            </div>
+            
+            <form class="space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-user text-gray-400"></i>
+                            </div>
+                            <input type="text" id="name" class="input-focus pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition duration-200" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-envelope text-gray-400"></i>
+                            </div>
+                            <input type="email" id="email" class="input-focus pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition duration-200" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-tag text-gray-400"></i>
+                        </div>
+                        <select id="subject" class="input-focus pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition duration-200 appearance-none">
+                            <option>General Inquiry</option>
+                            <option>Technical Support</option>
+                            <option>Feedback</option>
+                            <option>Press Inquiry</option>
+                            <option>Partnership</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                    <div class="relative">
+                        <div class="absolute top-3 left-3">
+                            <i class="fas fa-comment-dots text-gray-400"></i>
+                        </div>
+                        <textarea id="message" rows="6" class="input-focus pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition duration-200" required></textarea>
+                    </div>
+                </div>
+                
+                <div class="pt-2">
+                    <button type="submit" class="btn-gradient w-full text-white font-medium py-4 px-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 flex items-center justify-center">
+                        <i class="fas fa-paper-plane mr-3"></i> Send Message
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-16 px-6 bg-gray-50">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Quick answers to common questions about VitalTrack.
+                </p>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="faq-item bg-white p-6 rounded-xl shadow-md cursor-pointer">
+                    <button class="flex items-center justify-between w-full text-left">
+                        <h3 class="text-lg font-semibold">How quickly can I expect a response to my inquiry?</h3>
+                        <i class="fas fa-chevron-down text-indigo-600 transition-transform duration-300"></i>
+                    </button>
+                    <div class="mt-3 text-gray-600 hidden">
+                        <p>Our team strives to respond to all inquiries within <strong>24 hours</strong> during business days. For technical support issues, we typically respond even faster, usually within <strong>4-6 hours</strong> during our operating hours.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item bg-white p-6 rounded-xl shadow-md cursor-pointer">
+                    <button class="flex items-center justify-between w-full text-left">
+                        <h3 class="text-lg font-semibold">Do you offer support for technical issues?</h3>
+                        <i class="fas fa-chevron-down text-indigo-600 transition-transform duration-300"></i>
+                    </button>
+                    <div class="mt-3 text-gray-600 hidden">
+                        <p>Yes! Our technical support team is available <strong>Monday-Saturday from 9am-5:30pm EST</strong>. You can reach them by phone at <strong>+1 (800) 555-1234</strong> or by email at <strong>support@vitaltrack.com</strong>.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item bg-white p-6 rounded-xl shadow-md cursor-pointer">
+                    <button class="flex items-center justify-between w-full text-left">
+                        <h3 class="text-lg font-semibold">Can I schedule an in-person meeting at your Boston office?</h3>
+                        <i class="fas fa-chevron-down text-indigo-600 transition-transform duration-300"></i>
+                    </button>
+                    <div class="mt-3 text-gray-600 hidden">
+                        <p>Absolutely. We welcome scheduled visits to our Boston headquarters. Please contact us at least <strong>48 hours in advance</strong> to arrange a meeting time with the appropriate team members. You can schedule by emailing <strong>support@vitaltrack.com</strong> with your request.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <p class="text-gray-600 mb-6">Didn't find what you were looking for?</p>
+                <a href="#contact-form" class="btn-gradient inline-flex items-center text-white px-8 py-3 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <i class="fas fa-headset mr-2"></i> Contact Our Support Team
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-indigo-600 hover:bg-indigo-700 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition opacity-0 invisible">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-10 mb-12">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        <span class="ml-2 text-2xl font-bold">VitalTrack</span>
+                    </div>
+                    <p class="text-gray-400 mb-6">
+                        Empowering your health journey through innovative tracking and personalized insights.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Product</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Features</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Pricing</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Case Studies</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Updates</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Company</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Careers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Press</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Support</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-center text-gray-400">
+                <p>© 2023 VitalTrack Health Solutions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Accordion
+        document.querySelectorAll('.faq-item button').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                const answer = button.nextElementSibling;
+                const icon = button.querySelector('i');
+                
+                // Toggle answer visibility
+                answer.classList.toggle('hidden');
+                
+                // Rotate icon
+                icon.classList.toggle('rotate-180');
+            });
+        });
+        
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

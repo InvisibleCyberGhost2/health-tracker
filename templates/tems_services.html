@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service | VitalTrack Health</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #d946ef;
+        }
+        
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: #f8fafc;
+            color: #111827;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .legal-section {
+            counter-reset: section;
+        }
+        
+        .legal-section h2::before {
+            counter-increment: section;
+            content: counter(section) ". ";
+            color: var(--primary);
+        }
+        
+        .highlight-box {
+            background: rgba(99, 102, 241, 0.1);
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .highlight-box:hover {
+            background: rgba(99, 102, 241, 0.15);
+        }
+        
+        .btn-gradient {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: all 0.3s ease;
+        }
+        
+        .btn-gradient:hover {
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+    <!-- Animated Background Elements -->
+    <div class="fixed -right-32 -top-32 w-96 h-96 rounded-full bg-purple-200 opacity-20 blur-3xl"></div>
+    <div class="fixed -left-32 bottom-0 w-96 h-96 rounded-full bg-indigo-200 opacity-20 blur-3xl"></div>
+    
+    <!-- Navigation -->
+    <nav class="glass-card fixed top-0 left-0 right-0 z-50 py-4 px-6 shadow-sm">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="/" class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                <span class="ml-2 text-xl font-bold">VitalTrack</span>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="/privacy" class="text-gray-600 hover:text-indigo-600 transition">Privacy Policy</a>
+                <a href="/contact" class="text-gray-600 hover:text-indigo-600 transition">Contact</a>
+            </div>
+            <a href="/" class="btn-gradient text-white px-4 py-2 rounded-lg shadow hover:shadow-md transition">Back to App</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 px-6">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                Terms of <span class="gradient-text">Service</span>
+            </h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Last Updated: <span class="font-semibold">June 15, 2023</span>
+            </p>
+            <div class="mt-8 flex justify-center space-x-4">
+                <a href="#acceptance" class="btn-gradient text-white px-6 py-3 rounded-lg shadow hover:shadow-lg transition flex items-center">
+                    Jump to Sections <i class="fas fa-arrow-down ml-2"></i>
+                </a>
+                <a href="/privacy" class="border-2 border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:border-indigo-400 transition flex items-center">
+                    Privacy Policy <i class="fas fa-shield-alt ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-12 px-6">
+        <div class="max-w-4xl mx-auto glass-card p-8 md:p-12 rounded-2xl shadow-xl legal-section">
+            <!-- Introduction -->
+            <div class="mb-12">
+                <p class="text-gray-700 mb-6">
+                    Welcome to <span class="font-semibold">VitalTrack</span>! These Terms of Service ("Terms") govern your use of our health tracking platform and services ("Service"). Please read them carefully.
+                </p>
+                <div class="highlight-box p-6 rounded-lg mb-8">
+                    <p class="font-medium text-gray-800">
+                        <i class="fas fa-exclamation-circle text-indigo-600 mr-2"></i> By accessing or using the Service, you agree to be bound by these Terms. If you disagree with any part, you may not access the Service.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Section 1 -->
+            <h2 id="acceptance" class="text-2xl font-bold mt-12 mb-6">Acceptance of Terms</h2>
+            <p class="text-gray-700 mb-8">
+                By accessing or using the VitalTrack health tracking service ("Service"), you agree to be bound by these Terms of Service and our <a href="/privacy" class="text-indigo-600 hover:underline">Privacy Policy</a>. If you do not agree to all terms, you are not authorized to use the Service.
+            </p>
+
+            <!-- Section 2 -->
+            <h2 class="text-2xl font-bold mt-12 mb-6">Description of Service</h2>
+            <p class="text-gray-700 mb-6">
+                VitalTrack provides a digital platform for tracking health metrics including but not limited to:
+            </p>
+            <ul class="list-disc pl-6 mb-8 space-y-3 text-gray-700">
+                <li><span class="font-medium">Weight and body measurements</span> – Track progress with detailed analytics</li>
+                <li><span class="font-medium">Nutrition and dietary information</span> – Log meals and monitor macros</li>
+                <li><span class="font-medium">Fitness activities</span> – Record workouts and set goals</li>
+                <li><span class="font-medium">Sleep patterns</span> – Monitor rest and recovery</li>
+            </ul>
+            <p class="text-gray-700 mb-8">
+                The Service may be accessed via our website or mobile applications, and may include premium features available through subscription.
+            </p>
+
+            <!-- Section 3 -->
+            <h2 class="text-2xl font-bold mt-12 mb-6">User Responsibilities</h2>
+            <p class="text-gray-700 mb-6">
+                As a user of the Service, you agree to:
+            </p>
+            <ul class="list-disc pl-6 mb-8 space-y-3 text-gray-700">
+                <li>Provide <span class="font-medium">accurate, current, and complete</span> information during registration</li>
+                <li>Maintain the <span class="font-medium">confidentiality</span> of your account credentials</li>
+                <li>Use the Service only for <span class="font-medium">lawful purposes</span></li>
+                <li>Not attempt to <span class="font-medium">disrupt or interfere</span> with the Service</li>
+                <li>Not use the Service to <span class="font-medium">provide medical advice</span></li>
+            </ul>
+
+            <!-- Section 4 -->
+            <h2 class="text-2xl font-bold mt-12 mb-6">Health Information Disclaimer</h2>
+            <div class="highlight-box p-6 rounded-lg mb-8">
+                <p class="font-medium text-gray-800">
+                    <i class="fas fa-info-circle text-indigo-600 mr-2"></i> VitalTrack is <span class="font-bold">not a medical device</span> and is not intended to diagnose, treat, cure, or prevent any disease or health condition.
+                </p>
+            </div>
+            <p class="text-gray-700 mb-8">
+                The Service provides general health and wellness information and tracking tools, but does not constitute medical advice. Always consult with a qualified healthcare professional before making decisions about your health.
+            </p>
+
+            <!-- Section 5 -->
+            <h2 class="text-2xl font-bold mt-12 mb-6">Account Security</h2>
+            <p class="text-gray-700 mb-8">
+                You are responsible for maintaining the confidentiality of your account and password. You agree to accept responsibility for all activities that occur under your account.
+            </p>
+
+            <!-- Section 6 -->
+            <h2 class="text-2xl font-bold mt-12 mb-6">Intellectual Property</h2>
+            <p class="text-gray-700 mb-8">
+                The Service and its original content, features, and functionality are owned by VitalTrack and are protected by international copyright, trademark, and other intellectual property laws.
+            </p>
+
+            <!-- Section 7 -->
+            <h2 class="text-2xl font-bold mt-12 mb-6">Termination</h2>
+            <p class="text-gray-700 mb-8">
+                We may terminate or suspend your account immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach these Terms.
+            </p>
+
+            <!-- Section 8 -->
+            <h2 class="text-2xl font-bold mt-12 mb-6">Changes to Terms</h2>
+            <p class="text-gray-700 mb-8">
+                We reserve the right to modify these Terms at any time. We will provide notice of any changes by updating the "Last Updated" date at the top of this page.
+            </p>
+
+            <!-- Section 9 -->
+            <h2 class="text-2xl font-bold mt-12 mb-6">Governing Law</h2>
+            <p class="text-gray-700 mb-8">
+                These Terms shall be governed by and construed in accordance with the laws of the State of California, without regard to its conflict of law provisions.
+            </p>
+
+            <!-- Contact Information -->
+            <div class="mt-16 pt-8 border-t border-gray-200">
+                <h3 class="text-xl font-semibold mb-4">Have Questions?</h3>
+                <p class="text-gray-700 mb-4">
+                    If you have any questions about these Terms, please contact us:
+                </p>
+                <a href="mailto:legal@vitaltrack.com" class="text-indigo-600 hover:text-indigo-800 font-medium">
+                    <i class="fas fa-envelope mr-2"></i> legal@vitaltrack.com
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Top Button -->
+    <div class="fixed bottom-8 right-8">
+        <a href="#" class="bg-indigo-600 hover:bg-indigo-700 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        VitalTrack
+                    </h3>
+                    <p class="text-gray-400 mb-4">Empowering your health journey through innovative tracking.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/terms" class="text-gray-400 hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="/privacy" class="text-gray-400 hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="/cookies" class="text-gray-400 hover:text-white transition">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/about" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                        <li><a href="/careers" class="text-gray-400 hover:text-white transition">Careers</a></li>
+                        <li><a href="/blog" class="text-gray-400 hover:text-white transition">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/contact" class="text-gray-400 hover:text-white transition">Contact Us</a></li>
+                        <li><a href="/faq" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-center text-gray-400">
+                <p>© 2023 VitalTrack Health Solutions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Back to top button
+        const backToTopButton = document.querySelector('a[href="#"]');
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

@@ -30,6 +30,18 @@ def init_db():
 def index():
     return render_template('index.html')
 
+@app.route('/features')
+def features():
+    return render_template('features.html')
+
+@app.route('/team')
+def team():
+    return render_template('team.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -75,7 +87,7 @@ def login():
             logging.debug("Invalid email or password.")
             return f"Invalid email or password: {e}"
 
-    return render_template('index.html')
+    return render_template('login.html')
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
