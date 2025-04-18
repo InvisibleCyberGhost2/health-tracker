@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | VitalTrack</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .health-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+    {% include 'components/navbar.html' %}
+
+    <!-- Main Content -->
+    <div class="pt-16 pb-10 px-4 max-w-4xl mx-auto">
+        <!-- Welcome Section -->
+        <section class="mb-8 fade-in">
+            <h1 class="text-2xl font-bold mb-1">Hello, <span class="gradient-text">{{ user_name }}</span></h1>
+            <p class="text-gray-600">Here's your health summary for today</p>
+        </section>
+
+        <!-- Health Summary Cards -->
+        <section class="mb-8 grid grid-cols-2 gap-4">
+            <!-- Activity Card -->
+            <div class="health-card bg-white rounded-xl p-4 shadow-md transition-all duration-300">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="font-medium text-gray-800">Steps</h3>
+                    <div class="bg-purple-100 p-1 rounded-full">
+                        <i class="fas fa-walking text-purple-600 text-xs"></i>
+                    </div>
+                </div>
+                <div class="flex items-end space-x-1">
+                    <span class="text-2xl font-bold">{{ steps }}</span>
+                    <span class="text-sm text-gray-500">/10,000</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-1.5 mt-2">
+                    <div class="bg-purple-600 h-1.5 rounded-full" style="width: {{ (steps / 10000) * 100 }}%"></div>
+                </div>
+            </div>
+
+            <!-- Sleep Card -->
+            <div class="health-card bg-white rounded-xl p-4 shadow-md transition-all duration-300">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="font-medium text-gray-800">Sleep</h3>
+                    <div class="bg-indigo-100 p-1 rounded-full">
+                        <i class="fas fa-moon text-indigo-600 text-xs"></i>
+                    </div>
+                </div>
+                <div class="flex items-end space-x-1">
+                    <span class="text-2xl font-bold">{{ sleep }}</span>
+                    <span class="text-sm text-gray-500">/8h</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-1.5 mt-2">
+                    <div class="bg-indigo-600 h-1.5 rounded-full" style="width: {{ (sleep / 8) * 100 }}%"></div>
+                </div>
+            </div>
+
+            <!-- Heart Rate Card -->
+            <div class="health-card bg-white rounded-xl p-4 shadow-md transition-all duration-300">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="font-medium text-gray-800">Heart Rate</h3>
+                    <div class="bg-red-100 p-1 rounded-full">
+                        <i class="fas fa-heartbeat text-red-600 text-xs"></i>
+                    </div>
+                </div>
+                <div class="text-2xl font-bold">{{ heart_rate }} <span class="text-sm text-gray-500">bpm</span></div>
+                <div class="text-xs text-green-500 mt-1">
+                    <i class="fas fa-arrow-down mr-1"></i> Normal
+                </div>
+            </div>
+
+            <!-- Hydration Card -->
+            <div class="health-card bg-white rounded-xl p-4 shadow-md transition-all duration-300">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="font-medium text-gray-800">Hydration</h3>
+                    <div class="bg-blue-100 p-1 rounded-full">
+                        <i class="fas fa-glass-water text-blue-600 text-xs"></i>
+                    </div>
+                </div>
+                <div class="flex items-end space-x-1">
+                    <span class="text-2xl font-bold">{{ hydration }}</span>
+                    <span class="text-sm text-gray-500">/2L</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-1.5 mt-2">
+                    <div class="bg-blue-600 h-1.5 rounded-full" style="width: {{ (hydration / 2) * 100 }}%"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Activity Log Section -->
+        <section class="mb-8 fade-in">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">Today's Activity</h2>
+                <button class="text-sm text-indigo-600 hover:text-indigo-800 transition">
+                    View All
+                </button>
+            </div>
+
+            <div class="health-card bg-white rounded-xl p-4 shadow-md">
+                {% for activity in today_activities %}
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <div class="bg-purple-100 p-2 rounded-lg mr-3">
+                                <i class="fas fa-walking text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium">{{ activity.name }}</h3>
+                                <p class="text-xs text-gray-500">{{ activity.time }} • {{ activity.duration }}</p>
+                            </div>
+                        </div>
+                        <div class="text-green-500 font-medium">{{ activity.distance }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Quick Log Section -->
+        <section class="fade-in">
+            <h2 class="text-xl font-bold mb-4">Quick Log</h2>
+
+            <div class="health-card bg-white rounded-xl p-4 shadow-md">
+                <div class="grid grid-cols-4 gap-2 mb-4">
+                    <button class="p-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition flex flex-col items-center">
+                        <i class="fas fa-walking mb-1"></i>
+                        <span class="text-xs">Walk</span>
+                    </button>
+                    <button class="p-2 bg-purple-50 text-purple-600 rounded-lg hover:bg-purple-100 transition flex flex-col items-center">
+                        <i class="fas fa-dumbbell mb-1"></i>
+                        <span class="text-xs">Workout</span>
+                    </button>
+                    <button class="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition flex flex-col items-center">
+                        <i class="fas fa-glass-water mb-1"></i>
+                        <span class="text-xs">Water</span>
+                    </button>
+                    <button class="p-2 bg-green-50 text-green-600 rounded-lg hover:bg-green-100 transition flex flex-col items-center">
+                        <i class="fas fa-utensils mb-1"></i>
+                        <span class="text-xs">Meal</span>
+                    </button>
+                </div>
+
+                <div class="flex space-x-2">
+                    <button class="flex-1 bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition">
+                        <i class="fas fa-plus mr-1"></i> Activity
+                    </button>
+                    <button class="flex-1 border border-gray-300 py-2 rounded-lg hover:bg-gray-50 transition">
+                        <i class="fas fa-pen mr-1"></i> Note
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-2 px-6 md:hidden">
+        <div class="flex justify-around">
+            <a href="/dashboard" class="text-indigo-600 p-2">
+                <i class="fas fa-home text-xl"></i>
+            </a>
+            <a href="/activity" class="text-gray-500 p-2">
+                <i class="fas fa-chart-line text-xl"></i>
+            </a>
+            <a href="/log" class="text-gray-500 p-2">
+                <i class="fas fa-plus-circle text-xl"></i>
+            </a>
+            <a href="/goals" class="text-gray-500 p-2">
+                <i class="fas fa-bullseye text-xl"></i>
+            </a>
+            <a href="/profile" class="text-gray-500 p-2">
+                <i class="fas fa-user text-xl"></i>
+            </a>
+        </div>
+    </div>
+
+
+    {% include 'components/footer.html' %}
+
+    <script>
+        // Simple fade-in animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('opacity-100');
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

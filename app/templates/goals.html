@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goals | VitalTrack</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .health-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+    {% include 'components/navbar.html' %}
+
+    <!-- Main Content -->
+    <div class="pt-16 pb-10 px-4 max-w-4xl mx-auto">
+        <!-- Header Section -->
+        <section class="mb-8 fade-in">
+            <h1 class="text-2xl font-bold mb-1">Your <span class="gradient-text">Goals</span></h1>
+            <p class="text-gray-600">Set and track your health objectives</p>
+        </section>
+
+        <!-- Goals Overview -->
+        <section class="mb-8 fade-in">
+            <div class="health-card bg-white rounded-xl p-6 shadow-md">
+                <h2 class="text-xl font-bold mb-4">Current Goals</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <!-- Steps Goal -->
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="font-medium text-gray-800">Daily Steps</h3>
+                            <div class="bg-purple-100 p-1 rounded-full">
+                                <i class="fas fa-walking text-purple-600 text-xs"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-end space-x-1">
+                            <span class="text-2xl font-bold">{{ current_steps or 0 }}</span>
+                            <span class="text-sm text-gray-500">/{{ goals.steps or 10000 }}</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-1.5 mt-2">
+                            <div class="bg-purple-600 h-1.5 rounded-full" style="width: {{ ((current_steps or 0) / (goals.steps or 10000)) * 100 }}%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Sleep Goal -->
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="font-medium text-gray-800">Sleep</h3>
+                            <div class="bg-indigo-100 p-1 rounded-full">
+                                <i class="fas fa-moon text-indigo-600 text-xs"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-end space-x-1">
+                            <span class="text-2xl font-bold">{{ current_sleep or 0 }}</span>
+                            <span class="text-sm text-gray-500">/{{ goals.sleep or 8 }}h</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-1.5 mt-2">
+                            <div class="bg-indigo-600 h-1.5 rounded-full" style="width: {{ ((current_sleep or 0) / (goals.sleep or 8)) * 100 }}%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Water Goal -->
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="font-medium text-gray-800">Water Intake</h3>
+                            <div class="bg-blue-100 p-1 rounded-full">
+                                <i class="fas fa-glass-water text-blue-600 text-xs"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-end space-x-1">
+                            <span class="text-2xl font-bold">{{ current_water or 0 }}</span>
+                            <span class="text-sm text-gray-500">/{{ goals.water or 8 }} glasses</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-1.5 mt-2">
+                            <div class="bg-blue-600 h-1.5 rounded-full" style="width: {{ ((current_water or 0) / (goals.water or 8)) * 100 }}%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Weight Goal -->
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="font-medium text-gray-800">Weight</h3>
+                            <div class="bg-green-100 p-1 rounded-full">
+                                <i class="fas fa-weight text-green-600 text-xs"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-end space-x-1">
+                            <span class="text-2xl font-bold">{{ current_weight or '--' }}</span>
+                            <span class="text-sm text-gray-500">kg (Goal: {{ goals.weight or '--' }} kg)</span>
+                        </div>
+                        {% if current_weight and goals.weight %}
+                        <div class="mt-2 text-sm {{ 'text-green-600' if current_weight <= goals.weight else 'text-red-600' }}">
+                            <i class="fas fa-arrow-{{ 'down' if current_weight <= goals.weight else 'up' }} mr-1"></i>
+                            {{ ((goals.weight - current_weight) / goals.weight * 100)|round(1) }}% {{ 'ahead' if current_weight <= goals.weight else 'behind' }} of goal
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Set New Goals -->
+        <section class="fade-in">
+            <div class="health-card bg-white rounded-xl p-6 shadow-md">
+                <h2 class="text-xl font-bold mb-4">Update Your Goals</h2>
+                <form id="goalsForm" method="POST" action="/update_goals">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="stepsGoal" class="block text-sm font-medium text-gray-700 mb-1">Daily Steps</label>
+                            <input type="number" id="stepsGoal" name="steps" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="10000" value="{{ goals.steps or '' }}">
+                        </div>
+                        <div>
+                            <label for="sleepGoal" class="block text-sm font-medium text-gray-700 mb-1">Sleep (hours)</label>
+                            <input type="number" step="0.1" id="sleepGoal" name="sleep" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="8" value="{{ goals.sleep or '' }}">
+                        </div>
+                        <div>
+                            <label for="waterGoal" class="block text-sm font-medium text-gray-700 mb-1">Water (glasses)</label>
+                            <input type="number" id="waterGoal" name="water" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="8" value="{{ goals.water or '' }}">
+                        </div>
+                        <div>
+                            <label for="weightGoal" class="block text-sm font-medium text-gray-700 mb-1">Weight Goal (kg)</label>
+                            <input type="number" step="0.1" id="weightGoal" name="weight" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="70" value="{{ goals.weight or '' }}">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition">
+                        Update Goals
+                    </button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+
+    <script>
+        // Simple fade-in animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('opacity-100');
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

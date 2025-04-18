@@ -1,0 +1,71 @@
+<script>
+    const teamMembers = [
+      {
+        name: "Alex Johnson",
+        role: "Project Lead",
+        description: "Computer Science major with a passion for health informatics.",
+        image: "https://randomuser.me/api/portraits/women/44.jpg",
+        linkedin: "#",
+        github: "#"
+      },
+      {
+        name: "Sam Wilson",
+        role: "Frontend Developer",
+        description: "Combines design skills with technical expertise for great UX.",
+        image: "https://randomuser.me/api/portraits/men/32.jpg",
+        linkedin: "#",
+        github: "#"
+      },
+      {
+        name: "Jordan Lee",
+        role: "Health Specialist",
+        description: "Ensures all health recommendations are evidence-based.",
+        image: "https://randomuser.me/api/portraits/women/68.jpg",
+        linkedin: "#",
+        github: "#"
+      },
+      {
+        name: "Taylor Chen",
+        role: "Backend Developer",
+        description: "Builds the robust systems that power our analytics.",
+        image: "https://randomuser.me/api/portraits/men/75.jpg",
+        linkedin: "#",
+        github: "#"
+      },
+    ];
+  </script>
+  
+  <section id="team" class="py-20 px-6 bg-gray-50">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <span class="text-indigo-600 font-semibold uppercase tracking-wider">The People Behind</span>
+        <h2 class="text-3xl font-bold mt-2 mb-4">Our Team</h2>
+        <div class="w-20 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto rounded-full"></div>
+        <p class="text-lg text-gray-600 mt-6 max-w-3xl mx-auto">
+          Passionate students from [Your University] dedicated to improving health through technology.
+        </p>
+      </div>
+  
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {#each teamMembers as member}
+          <div class="health-card text-center p-6 rounded-xl">
+            <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-white shadow-md">
+              <img src={member.image} alt={member.name} class="w-full h-full object-cover" />
+            </div>
+            <h3 class="text-xl font-bold">{member.name}</h3>
+            <p class="text-purple-600 mb-3">{member.role}</p>
+            <p class="text-gray-600 text-sm mb-4">{member.description}</p>
+            <div class="flex justify-center space-x-3">
+              <a href={member.linkedin} class="text-gray-400 hover:text-indigo-600 transition">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href={member.github} class="text-gray-400 hover:text-indigo-600 transition">
+                <i class="fab fa-github"></i>
+              </a>
+            </div>
+          </div>
+        {/each}
+      </div>
+    </div>
+  </section>
+  

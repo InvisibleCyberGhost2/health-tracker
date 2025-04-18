@@ -155,109 +155,11 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="lg:flex lg:items-center lg:justify-between">
-                <div class="lg:w-1/2 mb-10 lg:mb-0">
-                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="About VitalTrack" class="rounded-xl shadow-lg w-full">
-                </div>
-                <div class="lg:w-1/2 lg:pl-12">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">About VitalTrack</h2>
-                    <p class="text-gray-600 mb-4">VitalTrack is a comprehensive health monitoring platform developed as part of an academic project at <span class="font-semibold text-blue-600">[Your Institution Name]</span> in the <span class="font-semibold text-blue-600">[Your Department Name]</span> department.</p>
-                    <p class="text-gray-600 mb-4">Our mission is to empower individuals to take control of their health through data-driven insights and personalized tracking tools.</p>
-                    <p class="text-gray-600 mb-6">This project combines cutting-edge web technologies with healthcare principles to create a user-friendly platform for monitoring various health metrics.</p>
-                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
-                        <p class="text-blue-700">"Health is a state of complete physical, mental and social well-being, and not merely the absence of disease or infirmity." - World Health Organization</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    {% include 'components/about.html' %}
+
 
     <!-- Team Section -->
-    <section id="team" class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Development Team</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Students from <span class="font-semibold">[Your Institution Name]</span> who made this project possible</p>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Team Member 1 -->
-                <div class="bg-white p-6 rounded-xl shadow-md text-center">
-                    <div class="w-24 h-24 bg-blue-100 rounded-full mx-auto mb-4 overflow-hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-full w-full text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-1">[Student 1 Name]</h3>
-                    <p class="text-blue-600 mb-3">Backend Developer</p>
-                    <p class="text-gray-600 text-sm">Responsible for server-side logic and database integration</p>
-                </div>
-                
-                <!-- Team Member 2 -->
-                <div class="bg-white p-6 rounded-xl shadow-md text-center">
-                    <div class="w-24 h-24 bg-green-100 rounded-full mx-auto mb-4 overflow-hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-full w-full text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-1">[Student 2 Name]</h3>
-                    <p class="text-blue-600 mb-3">Frontend Developer</p>
-                    <p class="text-gray-600 text-sm">Designed and implemented the user interface</p>
-                </div>
-                
-                <!-- Team Member 3 -->
-                <div class="bg-white p-6 rounded-xl shadow-md text-center">
-                    <div class="w-24 h-24 bg-purple-100 rounded-full mx-auto mb-4 overflow-hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-full w-full text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-1">[Student 3 Name]</h3>
-                    <p class="text-blue-600 mb-3">Project Manager</p>
-                    <p class="text-gray-600 text-sm">Coordinated team efforts and project timelines</p>
-                </div>
-                
-                <!-- Add more team members as needed -->
-                <!-- Team Member 4 -->
-                <div class="bg-white p-6 rounded-xl shadow-md text-center">
-                    <div class="w-24 h-24 bg-yellow-100 rounded-full mx-auto mb-4 overflow-hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-full w-full text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-1">[Student 4 Name]</h3>
-                    <p class="text-blue-600 mb-3">UI/UX Designer</p>
-                    <p class="text-gray-600 text-sm">Created wireframes and user experience flows</p>
-                </div>
-                
-                <!-- Team Member 5 -->
-                <div class="bg-white p-6 rounded-xl shadow-md text-center">
-                    <div class="w-24 h-24 bg-red-100 rounded-full mx-auto mb-4 overflow-hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-full w-full text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-1">[Student 5 Name]</h3>
-                    <p class="text-blue-600 mb-3">Quality Assurance</p>
-                    <p class="text-gray-600 text-sm">Tested functionality and identified bugs</p>
-                </div>
-                
-                <!-- Team Member 6 -->
-                <div class="bg-white p-6 rounded-xl shadow-md text-center">
-                    <div class="w-24 h-24 bg-indigo-100 rounded-full mx-auto mb-4 overflow-hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-full w-full text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-1">[Student 6 Name]</h3>
-                    <p class="text-blue-600 mb-3">Documentation Specialist</p>
-                    <p class="text-gray-600 text-sm">Prepared project documentation and reports</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    {% include 'components/team.html' %}
 
     <!-- CTA Section -->
     <section class="py-16 bg-blue-600 text-white">
