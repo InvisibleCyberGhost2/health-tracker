@@ -2,6 +2,10 @@ from flask import render_template, request, redirect, session, url_for, current_
 from datetime import datetime
 import logging
 import pyrebase
+from werkzeug.utils import secure_filename
+import requests
+import base64
+import time
 
 # Initialize Firebase
 firebase_config = {
@@ -19,6 +23,9 @@ firebase = pyrebase.initialize_app(firebase_config)
 db = firebase.database()
 
 main = Blueprint('main', __name__)
+
+# Imgur Client ID
+IMGUR_CLIENT_ID = 'your_imgur_client_id'
 
 @main.route('/')
 def index():
@@ -180,7 +187,7 @@ def log_activity():
             return redirect(url_for('main.activity'))
 
         db.child("activities").push(activity_data)
-        
+
         if request.is_json:
             return jsonify({'success': True})
         flash('Activity logged successfully!', 'success')
@@ -191,7 +198,6 @@ def log_activity():
         flash('Error logging activity. Please try again.', 'error')
 
     return redirect(url_for('main.activity'))
-
 
 @main.route('/log_health', methods=['GET', 'POST'])
 def log_health():
@@ -238,7 +244,7 @@ def log_health():
                 return redirect(url_for('main.log_health'))
 
             db.child("health").push(health_data)
-            
+
             if request.is_json:
                 return jsonify({'success': True})
             flash('Health data logged successfully!', 'success')
@@ -251,11 +257,10 @@ def log_health():
 
     if request.is_json:
         return jsonify({'success': False, 'error': 'Invalid request method'}), 405
-        
+
     return render_template('health_log.html',
                         user_image=session.get('user_image'),
                         email=session.get('email'))
-
 
 @main.route('/goals')
 def goals():
@@ -333,7 +338,7 @@ def edit_profile():
         # Get user data with consistent null handling
         user_ref = db.child("users").child(session['uid'])
         user = user_ref.get().val() or {}
-        
+
         # Get common user data for template
         user_name = user.get('name', 'User')
         user_image = session.get('user_image')
@@ -358,11 +363,11 @@ def edit_profile():
                     return redirect(url_for('main.edit_profile'))
 
                 user_ref.update(updated_data)
-                
+
                 # Update session name if changed
                 if 'name' in updated_data:
                     session['name'] = updated_data['name']
-                
+
                 flash('Profile updated successfully!', 'success')
                 return redirect(url_for('main.profile'))  # Redirect to profile instead of dashboard
 
@@ -386,14 +391,10 @@ def edit_profile():
         current_app.logger.error(f"Edit profile error: {str(e)}", exc_info=True)
         flash('Error loading profile editor. Please try again.', 'error')
         return redirect(url_for('main.profile'))
-        
-        
-        
-        
-        
+
 @main.route('/profile')
 def profile():
-    
+
     if 'uid' not in session:
         return redirect(url_for('auth.login'))
 
@@ -401,14 +402,14 @@ def profile():
         # Get user data (consistent with goals route)
         user_ref = db.child("users").child(session['uid']).get()
         user_data = user_ref.val() or {}
-        
+
         # Get user name (same pattern as goals route)
         user_name = user_data.get('name', 'User')
-        
+
         # Process health history (optimized version)
         health_ref = db.child("health").order_by_child("user_id").equal_to(session['uid']).get()
         health_history = {}
-        
+
         if health_ref.each():
             for entry in health_ref.each():
                 entry_data = entry.val()
@@ -424,7 +425,7 @@ def profile():
         # Process activity history (optimized version)
         activities_ref = db.child("activities").order_by_child("user_id").equal_to(session['uid']).get()
         activity_history = {}
-        
+
         if activities_ref.each():
             for entry in activities_ref.each():
                 entry_data = entry.val()
@@ -450,9 +451,6 @@ def profile():
         flash('Error loading profile data. Please try again.', 'error')
         return redirect(url_for('main.dashboard'))
 
-
-
-    
 @main.route('/settings', methods=['GET', 'POST'])
 def settings():
     if 'uid' not in session:
@@ -478,12 +476,29 @@ def settings():
 
                 if profile_image:
                     filename = secure_filename(profile_image.filename)
-                    filepath = os.path.join('uploads', filename)
-                    profile_image.save(filepath)
-                    storage.child(f"profile_images/{session['uid']}/{filename}").put(filepath)
-                    image_url = storage.child(f"profile_images/{session['uid']}/{filename}").get_url(None)
-                    updated_data['profile_image'] = image_url
-                    session['user_image'] = image_url
+                    file_content = profile_image.read()
+
+                    # Upload the file to Imgur with rate limiting
+                    headers = {'Authorization': f'Client-ID {IMGUR_CLIENT_ID}'}
+                    response = requests.post(
+                        'https://api.imgur.com/3/image',
+                        headers=headers,
+                        data={'image': base64.b64encode(file_content)}
+                    )
+
+                    if response.status_code == 429:
+                        flash('Too many requests. Please try again later.', 'error')
+                        return redirect(url_for('main.settings'))
+
+                    response_data = response.json()
+
+                    if response_data.get('success'):
+                        image_url = response_data['data']['link']
+                        updated_data['profile_image'] = image_url
+                        session['user_image'] = image_url
+                    else:
+                        flash('Error uploading image. Please try again.', 'error')
+                        return redirect(url_for('main.settings'))
 
                 user_ref.update(updated_data)
                 flash('Profile updated successfully!', 'success')
